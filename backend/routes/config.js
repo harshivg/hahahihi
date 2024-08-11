@@ -1,3 +1,3 @@
-const JWT_SECRET = "harshiv";
+const JWT_SECRET = "hahahihi";
 
 module.exports = JWT_SECRET;

@@ -1,5 +1,5 @@
 const express = require("express");
-const { User, Account } = require("../db");
+const { User, Account, Cart } = require("../db");
 const z = require("zod");
 const jwt = require("jsonwebtoken");
 
@@ -53,12 +53,18 @@ router.post("/signup", async (req, res) => {
         userId,
         balance: 1 + Math.floor(Math.random() * 10000)
     })
+
+    //also create an empty cart for the user
+
+    await Cart.create({
+        userId,
+        items: [],
+        totalPrice: 0
+    })
     
     res.json({
         message: "User created successfully",
     })
-
-
 })
 
 router.post("/signin", async (req, res) => {

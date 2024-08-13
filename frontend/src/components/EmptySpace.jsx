@@ -1,7 +1,7 @@
 function EmptySpaceRow(){
     return (
         <>
-        <div className=" w-10 h-40">
+        <div className=" w-8 h-32">
         </div>
         </>
     )
@@ -9,7 +9,7 @@ function EmptySpaceRow(){
 function EmptySpaceCol(){
     return (
         <>
-        <div className="w-40 h-10 ">
+        <div className="w-32 h-8 ">
         </div>
         </>
     )

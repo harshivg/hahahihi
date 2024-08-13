@@ -13,7 +13,7 @@ function Map() {
         <div className="relative">
           <Graph />
         </div>
-        <div className="border-4 border-red-700 flex w-full h-auto overflow-scroll">
+        <div className="border-2 border-black  flex  h-auto ">
           <div>
             <div className="flex">
               <div>
@@ -69,7 +69,7 @@ function Map() {
                 <ItemSectionCol key={index}  Section={SectionNo}
                 setSectionNo={setSectionNo} />
               ))}
-              <div className="h-10 w-60 bg-green-500">
+              <div className="h-8 w-[192px] bg-green-500">
                 <p className="text-center font-bold text-3xl">GATE</p>
               </div>
             </div>

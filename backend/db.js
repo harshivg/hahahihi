@@ -16,7 +16,8 @@ const itemSchema = new mongoose.Schema({
     company: String,
     name: String,
     aisle: String,
-    price: Number
+    price: Number,
+    blockNo: Number
 })
 
 const accountSchema = new mongoose.Schema({
@@ -47,7 +48,7 @@ const cartSchema = new mongoose.Schema({
         quantity: {
             type: Number,
             required: true,
-            min: 1
+            min: 0
         }
     }],
     totalPrice: {
@@ -66,7 +67,8 @@ const mockItems = [
         company: "Walmart",
         name: "Apple",
         aisle: "Produce",
-        price: 0.5
+        price: 5,
+        blockNo: 1
     },
     {
         id: "2",
@@ -74,7 +76,8 @@ const mockItems = [
         company: "Walmart",
         name: "Banana",
         aisle: "Produce",
-        price: 0.3
+        price: 3,
+        blockNo: 2
     },
     {
         id: "3",
@@ -82,7 +85,8 @@ const mockItems = [
         company: "Walmart",
         name: "Orange",
         aisle: "Produce",
-        price: 0.4
+        price: 4,
+        blockNo: 3
     },
     {
         id: "4",
@@ -90,7 +94,8 @@ const mockItems = [
         company: "Walmart",
         name: "Peach",
         aisle: "Produce",
-        price: 0.6
+        price: 6,
+        blockNo: 4
     },
     {
         id: "5",
@@ -98,27 +103,16 @@ const mockItems = [
         company: "Walmart",
         name: "Pear",
         aisle: "Produce",
-        price: 0.7
+        price: 7,
+        blockNo: 5
     }
 ]
 
 const addItems = async () => {
-    try {
-        for (const item of mockItems) {
-            const existingItem = await Item.findOne({ id: item.id });
-            if (existingItem) {
-                existingItem.quantity += item.quantity;
-                await existingItem.save();
-                console.log(`Updated quantity of item with ID ${item.id}. New quantity: ${existingItem.quantity}`);
-            } else {
-                const newItem = new Item(item);
-                await newItem.save();
-                console.log(`Added new item with ID ${item.id}`);
-            }
-        }
-    } catch (error) {
-        console.error("Error adding or updating items:", error);
-    }
+    await Item.deleteMany({});
+    await Item.insertMany(mockItems);
+
+    console.log("Items added");
 };
 
 

@@ -9,28 +9,24 @@ function Map() {
   const [SectionNo, setSectionNo] = useState(1);
   return (
     <>
-      <div className="h-20">h-20</div>
       <div className="absolute">
         <div className="relative">
           <Graph />
         </div>
-        <div className="border-4 border-red-700 flex w-full h-auto overflow-scroll">
+        <div className="border-2 border-black  flex  h-auto ">
           <div>
             <div className="flex">
               <div>
                 {Array.from({ length: 3 }, (_, index) => (
                   <ItemSectionRow
                     key={index}
-                    Section={SectionNo}
-                    setSectionNo={setSectionNo}
                   />
                 ))}
               </div>
               <div>
                 <div className="flex w-full ">
                   {Array.from({ length: 6 }, (_, index) => (
-                    <ItemSectionCol key={index} Section={SectionNo}
-                    setSectionNo={setSectionNo} />
+                    <ItemSectionCol key={index} />
                   ))}
                 </div>
                 <div className="flex w-full ">
@@ -40,8 +36,7 @@ function Map() {
                 </div>
                 <div className="flex">
                   {Array.from({ length: 6 }, (_, index) => (
-                    <Section key={index} Section={SectionNo}
-                    setSectionNo={setSectionNo} />
+                    <Section key={index} />
                   ))}
                   <div className=" w-full ">
                     {Array.from({ length: 2 }, (_, index) => (
@@ -60,17 +55,15 @@ function Map() {
 
               <div>
                 {Array.from({ length: 3 }, (_, index) => (
-                  <ItemSectionRow key={index} Section={SectionNo}
-                  setSectionNo={setSectionNo} />
+                  <ItemSectionRow key={index} />
                 ))}
               </div>
             </div>
             <div className="flex w-full ">
               {Array.from({ length: 5 }, (_, index) => (
-                <ItemSectionCol key={index}  Section={SectionNo}
-                setSectionNo={setSectionNo} />
+                <ItemSectionCol key={index}  />
               ))}
-              <div className="h-10 w-60 bg-green-500">
+              <div className="h-8 w-[192px] bg-green-500">
                 <p className="text-center font-bold text-3xl">GATE</p>
               </div>
             </div>

@@ -5,6 +5,7 @@ import { Heading } from "../components/Heading"
 import { InputBox } from "../components/InputBox"
 import { SubHeading } from "../components/SubHeading"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 function Signup(){
     const [firstName, setFirstName] = useState("")
@@ -22,18 +23,18 @@ function Signup(){
 
                     <InputBox
                         label={"First Name"} 
-                        placeholder={"Harshiv"} 
+                        placeholder={"Hahahihi"} 
                         onChange={(e) => setFirstName(e.target.value)}
                     />
                     <InputBox 
                         label={"Last Name"} 
-                        placeholder={"Ganwani"} 
+                        placeholder={"Hohuha"} 
                         onChange={(e) => setLastName(e.target.value)}
 
                     />
                     <InputBox 
                         label={"Email"} 
-                        placeholder={"harshiv@gmail.com"}
+                        placeholder={"hahihi@gmail.com"}
                         onChange={(e) => setUsername(e.target.value)}
 
                     />
@@ -54,6 +55,8 @@ function Signup(){
                                     username,
                                     password
                                 })
+
+                                useNavigate("/")
                             }}
                         />
                         <BottomWarning label={"Already have an account?"} toText={"Sign In"} to={"/signin"} />

@@ -21,13 +21,18 @@ router.get("/bulk", async (req, res) => {
         ]
     });
 
+    items.filter(item => item.quantity > 0);
+
     res.json({
         items: items.map(item => ({
             name: item.name,
             aisle: item.aisle,
             price: item.price,
             company: item.company,
-            id: item.id
+            id: item.id,
+            _id: item._id,
+            blockNo: item.blockNo,
+            quantity: item.quantity
         }))
     })
 })
@@ -45,13 +50,14 @@ router.get("/cart", authMiddleware, async (req, res) => {
         // Use Promise.all to handle async operations in map
         const items = await Promise.all(cart.items.map(async (i) => {
             const item = await Item.findById(i.itemId);
-            if (item) {
+            if (item && i.quantity > 0) {
                 return {
                     name: item.name,
                     aisle: item.aisle,
                     price: item.price,
                     company: item.company,
-                    quantity: i.quantity
+                    quantity: i.quantity,
+                    blockNo: item.blockNo,
                 };
             } else {
                 return null;
@@ -69,7 +75,6 @@ router.get("/cart", authMiddleware, async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
-
 
 router.post("/addToCart/:id", authMiddleware, async (req, res) => {
     const itemId = req.params.id;
@@ -140,6 +145,9 @@ router.post("/removeFromCart/:id", authMiddleware, async (req, res) => {
             return res.status(404).json({ error: "Item not in cart" });
         }
         existingItem.quantity -= 1;
+        
+         
+
         item.quantity += 1;
         
         await item.save();

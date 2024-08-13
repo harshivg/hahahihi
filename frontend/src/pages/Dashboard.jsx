@@ -4,6 +4,9 @@ import { Cart } from "../components/Cart";
 import { Items } from "../components/Items";
 import axios from "axios";
 import { Button } from "../components/Button";
+=======
+import Map from "../components/Map";
+
 
 export const Dashboard = ()  => {
     const [cart, setCart] = useState([]);
@@ -39,17 +42,25 @@ export const Dashboard = ()  => {
     return (
         <div>
             <Appbar />
-            <div className="m-8 w-1/4">
 
-            {showCart ? 
+
+        <div className="flex">
+            <div className="p-5 w-1/3">
+                <Items fetchCart={fetchCart} />
+{showCart ? 
                 <Cart cart={cart} total={total} />
                 :
                 <Items fetchCart={fetchCart} />
+                  
+}
             }
 
             <Button 
                 label={!showCart ? "Cart" : "Items"}
                 onClick={() => setshowCart(!showCart)}/>
+            </div>
+            <div className="p-5 w-2/3">
+            <Map />    
             </div>
         </div>
     );

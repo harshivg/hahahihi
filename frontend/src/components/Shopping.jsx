@@ -5,30 +5,36 @@ function Shopping({ PathList }) {
   const [curr, setCurr] = useState(28);
   const [destination, setDestination] = useState(28);
   const [ind, setInd] = useState(0);
-  const n = PathList.length;
+  const totalDuration = PathList.length*5000;
 
   useEffect(() => {
+    if (PathList.length === 0) return; 
     const interval = setInterval(() => {
-      setCurr(destination);
-      setDestination(PathList[ind]);
-      setInd((prevInd) => {
-        console.log(prevInd);
-        return prevInd + 1;
-      });
+      if (ind >= PathList.length) {
+        setCurr(28);
+        setDestination(28);
+      } else {
+        setCurr(destination);
+        setDestination(PathList[ind]);
+        setInd((prevInd) => {
+          return prevInd + 1;
+        });
+      }
     }, 5000);
     const timeout = setTimeout(() => {
       clearInterval(interval);
-    }, 5000 * n);
-
+    }, totalDuration);
     return () => {
       clearInterval(interval);
       clearTimeout(timeout);
     };
-  }, [destination, ind, n]);
+  }, [PathList, destination, ind, totalDuration]);
+
   return (
     <>
       <ShortestDist src={curr} dest={destination} />
     </>
   );
 }
+
 export default Shopping;

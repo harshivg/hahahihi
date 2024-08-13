@@ -1,6 +1,6 @@
 import React from "react";
 
-function Vertex({ no, x, y, }) {
+function Vertex({ no, x, y }) {
   const style = {
     top: `${y}px`,
     left: `${x}px`,
@@ -11,10 +11,12 @@ function Vertex({ no, x, y, }) {
     <div
       style={style}
       className={`
-        p-3 rounded-full ${bgColorClass}  text-3xl font-semibold  h-16 w-16 text-center  absolute
+         rounded-full ${bgColorClass}  text-sm font-semibold  h-2 w-2 text-center  absolute
+        bg-green-800
+        
+        
       `}
     >
-        
       
     </div>
   );

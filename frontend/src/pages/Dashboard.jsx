@@ -41,22 +41,23 @@ export const Dashboard = () => {
 
   return (
     <>
-      <Appbar />
-      <div className="flex">
-        <div className="p-5 w-1/3">
-          {showCart ? (
-            <Cart cart={cart} total={total} />
-          ) : (
-            <Items fetchCart={fetchCart} />
-          )}
-
-          <Button
-            label={!showCart ? "Cart" : "Items"}
-            onClick={() => setshowCart(!showCart)}
-          />
-        </div>
-        <div className="p-5 w-2/3">
-          <Map />
+      <div className="w-full">
+        <Appbar />
+        <div className="flex">
+          <div className="p-3 w-1/3">
+            {showCart ? (
+              <Cart cart={cart} total={total} />
+            ) : (
+              <Items fetchCart={fetchCart} />
+            )}
+            <Button
+              label={!showCart ? "Cart" : "Items"}
+              onClick={() => setshowCart(!showCart)}
+            />
+          </div>
+          <div className="p-5 w-3/5">
+            <Map />
+          </div>
         </div>
       </div>
     </>

@@ -9,7 +9,6 @@ function Map() {
   const [SectionNo, setSectionNo] = useState(1);
   return (
     <>
-      <div className="h-20">h-20</div>
       <div className="absolute">
         <div className="relative">
           <Graph />

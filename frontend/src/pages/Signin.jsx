@@ -18,7 +18,7 @@ function Signin(){
                     <SubHeading description={"Log In to your account"} />
                     <InputBox 
                         label={"Username"} 
-                        placeholder={"harshiv@gmail.com"} 
+                        placeholder={"username"} 
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <InputBox  
@@ -35,7 +35,11 @@ function Signin(){
                                     username,
                                     password
                                 })
-                                localStorage.setItem("token", token)
+                                
+                                console.log(response);
+                                localStorage.setItem("token", response.data.token)
+
+                                window.location.href = "/"
                             }}
                         />
                     </div>

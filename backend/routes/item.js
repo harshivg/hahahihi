@@ -27,7 +27,8 @@ router.get("/bulk", async (req, res) => {
             aisle: item.aisle,
             price: item.price,
             company: item.company,
-            id: item.id
+            id: item.id,
+            _id: item._id
         }))
     })
 })
@@ -69,7 +70,6 @@ router.get("/cart", authMiddleware, async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
-
 
 router.post("/addToCart/:id", authMiddleware, async (req, res) => {
     const itemId = req.params.id;

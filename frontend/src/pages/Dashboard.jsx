@@ -3,10 +3,13 @@ import { Appbar } from "../components/Appbar";
 import { Cart } from "../components/Cart";
 import { Items } from "../components/Items";
 import axios from "axios";
+import { Button } from "../components/Button";
 
 export const Dashboard = ()  => {
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0);
+
+    const [showCart, setshowCart] = useState(false);
 
     const fetchCart = () => {
         axios.get("http://localhost:3000/api/v1/item/cart", {
@@ -36,9 +39,17 @@ export const Dashboard = ()  => {
     return (
         <div>
             <Appbar />
-            <div className="m-8 w-1/3">
-                <Items fetchCart={fetchCart} />
+            <div className="m-8 w-1/4">
+
+            {showCart ? 
                 <Cart cart={cart} total={total} />
+                :
+                <Items fetchCart={fetchCart} />
+            }
+
+            <Button 
+                label={!showCart ? "Cart" : "Items"}
+                onClick={() => setshowCart(!showCart)}/>
             </div>
         </div>
     );

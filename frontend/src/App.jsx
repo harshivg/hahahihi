@@ -6,18 +6,24 @@ import {
 import Signup from "./pages/Signup"
 import Signin from "./pages/Signin"
 import { Dashboard } from "./pages/Dashboard"
-
+import Welcome from "./components/Welcome"
 function App() {
   return (
     <>
-      <BrowserRouter>
+          <BrowserRouter>
         <Routes>
-          <Route path="/signin" element={<Signin />} />
+          <Route
+            path="/signin"
+            element={
+                <Welcome></Welcome>
+            }
+          />
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </>
+    
   );
 }
 

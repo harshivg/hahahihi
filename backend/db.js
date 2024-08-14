@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { mockItems } = require("./itemList");
 
 mongoose.connect("mongodb+srv://admin:hx220903@cluster0.fkjkl0y.mongodb.net/walmart");
 
@@ -58,63 +59,15 @@ const cartSchema = new mongoose.Schema({
     }
 });
 
-
-//mock data
-const mockItems = [
-    {
-        id: "1",
-        quantity: 10,
-        company: "Walmart",
-        name: "Apple",
-        aisle: "Produce",
-        price: 5,
-        blockNo: 1
-    },
-    {
-        id: "2",
-        quantity: 20,
-        company: "Walmart",
-        name: "Banana",
-        aisle: "Produce",
-        price: 3,
-        blockNo: 2
-    },
-    {
-        id: "3",
-        quantity: 30,
-        company: "Walmart",
-        name: "Orange",
-        aisle: "Produce",
-        price: 4,
-        blockNo: 3
-    },
-    {
-        id: "4",
-        quantity: 40,
-        company: "Walmart",
-        name: "Peach",
-        aisle: "Produce",
-        price: 6,
-        blockNo: 4
-    },
-    {
-        id: "5",
-        quantity: 50,
-        company: "Walmart",
-        name: "Pear",
-        aisle: "Produce",
-        price: 7,
-        blockNo: 5
-    }
-]
-
 const addItems = async () => {
     await Item.deleteMany({});
-    await Item.insertMany(mockItems);
-
-    console.log("Items added");
+    await Item.insertMany(mockItems)
+        .then(() => console.log("Items added"))
+        .catch((err) => console.log(err));
 };
 
+
+// console.log(mockItems);
 
 
 const User = mongoose.model("User", userSchema);

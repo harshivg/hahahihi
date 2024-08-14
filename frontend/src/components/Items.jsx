@@ -15,8 +15,7 @@ export const Items = ({ fetchCart }) => {
         })
             .then((response) => {
                 setItems(response.data.items);
-                // console.log(response)
-            })
+            });
     }, [filter]);
 
     return (
@@ -32,7 +31,13 @@ export const Items = ({ fetchCart }) => {
                     className="w-full px-2 py-1 border rounded-lg border-gray-300 mb-4"
                 />
             </div>
-            <div>
+            <div className="h-96 overflow-y-auto no-scrollbar">  
+                {/* Adjust height as needed */}
+                <div className="flex justify-between border-b-2 border-gray-300 py-4 font-bold">
+                    <div className="w-1/3">Item</div>
+                    <div className="w-1/3">Price</div>
+                    <div className="w-1/3"></div>
+                </div>
                 {items.map((item) => <Item key={item._id} item={item} fetchCart={fetchCart} />)}
             </div>
         </>
@@ -40,29 +45,15 @@ export const Items = ({ fetchCart }) => {
 }
 
 function Item({ item, fetchCart }) {
-    const navigate = useNavigate();
     const id = item._id;
 
     return (
-        <div className="flex justify-between">
-            <div className="flex">
-                <div className="rounded-full h-12 w-12 bg-slate-200 flex justify-center mt-1 mr-2 ">
-                    <div className="flex flex-col justify-center h-full text-xl">
-                        {item.name[0]}
-                    </div>
-                </div>
-
-                <div className="flex flex-col justify-center h-full">
-                    <div>
-                        {item.name} {item.price} 
-                        {/* add item info */}
-                    </div>
-                </div>
-            </div>
-
-            <div className="pt-2 flex">
+        <div className="flex justify-between py-4 border-b border-gray-300">
+            <div className="w-1/3">{item.name}</div>
+            <div className="w-1/3">₹{item.price}</div>
+            <div className="w-1/3 flex">
                 <Button 
-                    label={"Plus"} 
+                    label={"+"} 
                     onClick={() => {
                         axios.post("http://localhost:3000/api/v1/item/addToCart/" + id,
                             {},
@@ -74,9 +65,8 @@ function Item({ item, fetchCart }) {
                         ).then(() => fetchCart());
                     }}
                 />
-
                 <Button 
-                    label={"Minus"}
+                    label={"-"}
                     onClick={() => {
                         axios.post("http://localhost:3000/api/v1/item/removeFromCart/" + id, 
                             {},

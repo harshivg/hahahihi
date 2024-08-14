@@ -48,9 +48,8 @@ export const Cart = ({ cart, total, scrollToBottom }) => {
                 <div>₹{total - (discount * total) / 100}</div>
               </div>
               <div className="mt-4">
-                <button className="bg-black text-white px-4 py-2 rounded">
-                  Checkout
-                </button>
+                <Button label="Checkout" onClick={scrollToBottom} />
+
               </div>
             </div>
             

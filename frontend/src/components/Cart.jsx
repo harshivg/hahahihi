@@ -24,7 +24,7 @@ export const Cart = ({ cart, total }) => {
                     <div className="border-2 border-gray-300 p-4">
                         <div className="flex justify-between">
                             <div>Subtotal</div>
-                            <div>${total}</div>
+                            <div>₹{total}</div>
                         </div>
                         <div className="flex justify-between">
                             <div>Discount</div>
@@ -32,7 +32,7 @@ export const Cart = ({ cart, total }) => {
                         </div>
                         <div className="flex justify-between">
                             <div>Total</div>
-                            <div>${total - (discount * total) / 100}</div>
+                            <div>₹{total - (discount * total) / 100}</div>
                         </div>
                         <div className="mt-4">
                             <button className="bg-slate-500 text-white px-4 py-2 rounded">Checkout</button>
@@ -53,7 +53,7 @@ function CartItem ({ item }) {
         <div className="flex justify-between border-b-2 border-gray-300 py-4">
             <div className="w-1/2">{item.name}</div>
             <div className="w-1/4">{item.quantity}</div>
-            <div className="w-1/4">${item.price}</div>
+            <div className="w-1/4">₹{item.price}</div>
         </div>
     );
 }

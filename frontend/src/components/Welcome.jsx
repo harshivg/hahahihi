@@ -9,11 +9,11 @@ function LandingPage() {
     <div className="bg-blue-100 h-full flex flex-col ">
       {/* Hero Section */}
       <section className="bg-blue-600 text-emerald-500 decoration-red-950 text-center py-36 bg-[url('img3.jpg')] bg-cover h-full ">
-        <div className="container mx-auto px-4 ">
+        <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold -translate-y-32 italic drop-shadow-2x
          text-black   ">Welcome to Hahahihi</h1>
           <p className="mt-4 text-lg translate-y-64 italic brightness-100
-           drop-shadow-2x text-black   text-shadow text-shadow-md 
+           drop-shadow-2x text-black   text-shadow text-shadow-md bg-slate-200 font-bold
               ">Find the best routes for your shopping needs.</p>
           
          <p className='text-black'>....</p>

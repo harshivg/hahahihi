@@ -91,6 +91,11 @@ router.post("/signin", async (req, res) => {
     const token = jwt.sign({
         userId : user._id
     }, JWT_SECRET)
+
+    await Cart.findOneAndUpdate(
+        { userId: user._id }, // Find the cart by userId
+        { $set: { items: [] } } // Set items array to empty
+    );
     
     res.json({
         message: "User signed in successfully",

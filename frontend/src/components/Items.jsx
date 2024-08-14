@@ -6,9 +6,22 @@ import { CiSearch } from "react-icons/ci";
 export const Items = ({ fetchCart }) => {
     const [items, setItems] = useState([]);
     const [filter, setFilter] = useState("");
+    const [debouncedFilter, setDebouncedFilter] = useState(filter);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/item/bulk?filter=" + filter, {
+        // Set a timeout to update the debounced filter after a delay
+        const handler = setTimeout(() => {
+            setDebouncedFilter(filter);
+        }, 500); // 500ms debounce delay
+
+        // Clear the timeout if the effect is about to re-run (on filter change)
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [filter]);
+
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/v1/item/bulk?filter=" + debouncedFilter, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }
@@ -16,7 +29,7 @@ export const Items = ({ fetchCart }) => {
             .then((response) => {
                 setItems(response.data.items);
             });
-    }, [filter]);
+    }, [debouncedFilter]);
 
     return (
         <>
@@ -24,16 +37,16 @@ export const Items = ({ fetchCart }) => {
                 Items
             </div>
             <div className="relative mb-4">
-            <span className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-                <CiSearch className="text-gray-500" />
-            </span>
-            <input 
-                onChange={(e) => {setFilter(e.target.value)}}
-                placeholder="Search Items"
-                type="text"
-                className="w-full pl-8 pr-2 py-1 border rounded-lg border-gray-300"
-            />
-        </div>
+                <span className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
+                    <CiSearch className="text-gray-500" />
+                </span>
+                <input 
+                    onChange={(e) => { setFilter(e.target.value); }}
+                    placeholder="Search Items"
+                    type="text"
+                    className="w-full pl-8 pr-2 py-1 border rounded-lg border-gray-300"
+                />
+            </div>
             <div className="h-96 overflow-y-auto no-scrollbar">  
                 {/* Adjust height as needed */}
                 <div className="flex justify-between border-b-2 border-gray-300 py-4 font-bold">

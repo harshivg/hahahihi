@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Vertex from "./Vertex";
 import ShortestDist from "./ShortestDist";
 import Shopping from "./Shopping";
 
-function Graph() {
+function Graph({cart}) {
   const arr = [
     { no: 1, x: 50, y: 40 },
     { no: 2, x: 150, y: 40 },
@@ -64,6 +64,8 @@ function Graph() {
     { no: 29, x: 690, y: 120 },
   ];
 
+  const PathList=cart.map((item)=>item.blockNo);
+
   return (
     <>
       {arr.map((item, ind) => (
@@ -71,9 +73,7 @@ function Graph() {
       ))}
 
       <Shopping
-        PathList={[
-          1, 10, 18, 24, 1, 12, 21, 23, 28, 11, 19, 10, 22, 3, 7, 19, 4,
-        ]}
+        PathList={PathList}
       />
     </>
   );

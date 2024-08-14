@@ -34,6 +34,7 @@ export const Dashboard = () => {
         console.error("Error fetching cart items", error);
       });
   };
+  cart.sort((a,b)=>a.blockNo-b.blockNo);
 
   useEffect(() => {
     fetchCart();
@@ -56,7 +57,7 @@ export const Dashboard = () => {
             />
           </div>
           <div className="p-5 w-3/5">
-            <Map />
+            <Map cart={cart} />
           </div>
         </div>
       </div>

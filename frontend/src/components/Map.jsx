@@ -5,13 +5,13 @@ import Section from "./Sections.jsx";
 import Graph from "./Graph.jsx";
 import ShortestDist from "./ShortestDist.jsx";
 
-function Map() {
+function Map({cart}) {
   const [SectionNo, setSectionNo] = useState(1);
   return (
     <>
       <div className="absolute">
         <div className="relative">
-          <Graph />
+          <Graph cart={cart} />
         </div>
         <div className="border-2 border-black  flex  h-auto ">
           <div>

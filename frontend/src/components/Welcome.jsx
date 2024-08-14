@@ -8,7 +8,7 @@ function LandingPage() {
    
     <div className="bg-blue-100 h-full flex flex-col ">
       {/* Hero Section */}
-      <section className="bg-blue-600 text-emerald-500 decoration-red-950 text-center py-36 bg-[url('img3.jpg')] bg-cover h-full ">
+      <section className="bg-blue-600 text-emerald-500 decoration-red-950 text-center py-36 bg-[url(/images/welcomeCart.jpg)] bg-cover h-full ">
         <div className="container mx-auto px-4 ">
           <h1 className="text-4xl font-bold -translate-y-32 italic drop-shadow-2x
          text-black   ">Welcome to Hahahihi</h1>

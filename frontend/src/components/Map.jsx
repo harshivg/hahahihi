@@ -9,11 +9,11 @@ function Map({cart}) {
   const [SectionNo, setSectionNo] = useState(1);
   return (
     <>
-      <div className="absolute">
-        <div className="relative">
+      <div className="relative">  
+        <div className="absolute">
           <Graph cart={cart} />
         </div>
-        <div className="border-2 border-black  flex  h-auto ">
+        <div className="border-2 border-black flex h-auto absolute">
           <div>
             <div className="flex">
               <div>
@@ -63,7 +63,7 @@ function Map({cart}) {
               {Array.from({ length: 5 }, (_, index) => (
                 <ItemSectionCol key={index}  />
               ))}
-              <div className="h-8 w-[192px] bg-green-500">
+              <div className="h-8 w-[192px] bg-blue-500">
                 <p className="text-center font-bold text-3xl">GATE</p>
               </div>
             </div>

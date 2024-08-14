@@ -13,7 +13,7 @@ function Vertex({ no, x, y, type }) {
       className={`
          rounded-full  text-sm 
          font-semibold  h-2 w-2 text-center  absolute
-         z-50
+         z-50 text-gray-300
       
       `}
     >

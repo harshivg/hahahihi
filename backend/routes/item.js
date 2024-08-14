@@ -10,12 +10,14 @@ router.get("/bulk", async (req, res) => {
         $or: [
             {
                 name: {
-                    $regex: filter
+                    $regex: filter,
+                    $options: "i"
                 }
             },
             {
                 aisle: {
-                    $regex: filter
+                    $regex: filter,
+                    $options: "i"
                 }
             }
         ]
@@ -79,12 +81,12 @@ router.get("/cart", authMiddleware, async (req, res) => {
 router.post("/addToCart/:id", authMiddleware, async (req, res) => {
     const itemId = req.params.id;
     
-    console.log(itemId);
+    // console.log(itemId);
 
     try {
         const item = await Item.findById(itemId);
         
-        console.log(item.name);
+        // console.log(item.name);
 
         if (!item || item.quantity === 0) {
             return res.status(404).json({ error: "Item not found" });
@@ -92,7 +94,7 @@ router.post("/addToCart/:id", authMiddleware, async (req, res) => {
         
         const cart = await Cart.findOne({ userId: req.userId });
         
-        console.log(cart);
+        // console.log(cart);
 
         if (!cart) {
             const newCart = new Cart({

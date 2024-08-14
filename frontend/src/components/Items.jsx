@@ -6,18 +6,31 @@ import { CiSearch } from "react-icons/ci";
 export const Items = ({ fetchCart }) => {
   const [items, setItems] = useState([]);
   const [filter, setFilter] = useState("");
+    const [debouncedFilter, setDebouncedFilter] = useState(filter);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/api/v1/item/bulk?filter=" + filter, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
-      .then((response) => {
-        setItems(response.data.items);
-      });
-  }, [filter]);
+    useEffect(() => {
+        // Set a timeout to update the debounced filter after a delay
+        const handler = setTimeout(() => {
+            setDebouncedFilter(filter);
+        }, 500); // 500ms debounce delay
+
+        // Clear the timeout if the effect is about to re-run (on filter change)
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [filter]);
+
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/v1/item/bulk?filter=" + debouncedFilter, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
+            .then((response) => {
+                setItems(response.data.items);
+            });
+    }, [debouncedFilter]);
+
 
   return (
     <>
@@ -49,6 +62,7 @@ export const Items = ({ fetchCart }) => {
     </>
   );
 };
+
 
 function Item({ item, fetchCart }) {
   const id = item._id;

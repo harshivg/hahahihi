@@ -2,6 +2,7 @@ import React from "react";
 import { FaPerson } from "react-icons/fa6";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 function Vertex({ no, x, y, type }) {
+  
   const style = {
     top: `${y}px`,
     left: `${x}px`,
@@ -17,10 +18,10 @@ function Vertex({ no, x, y, type }) {
       
       `}
     >
-      {type >= 28 && type < 100 && <p>{no}</p>}
-      {type === 100 && <FaPerson className="size-10 z-100" />}
+      {type >= 28 && type < 100 && <p className="text-[10px] ">{no}</p>}
+      {type === 100 && <FaPerson className="lg:size-10 md:size-5 sm:size-2 z-100" />}
       {type == 101 && (
-        <MdOutlineProductionQuantityLimits className="size-10 z-100" />
+        <MdOutlineProductionQuantityLimits className="lg:size-10 md:size-5 sm:size-2 z-100" />
       )}
     </div>
   );

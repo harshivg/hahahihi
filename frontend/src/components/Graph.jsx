@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Vertex from "./Vertex";
 import ShortestDist from "./ShortestDist";
 import Shopping from "./Shopping";
 
 function Graph({ cart }) {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  let changed= 1024/screenWidth;
   const arr = [
     { no: 1, x: 50, y: 40 },
     { no: 5, x: 150, y: 40 },
@@ -69,7 +82,7 @@ function Graph({ cart }) {
   return (
     <>
       {arr.map((item, ind) => (
-        <Vertex key={ind} no={item.no} x={item.x} y={item.y} type={ind} />
+        <Vertex key={ind} no={item.no} x={item.x/changed} y={item.y/changed} type={ind} />
       ))}
 
       <Shopping PathList={PathList} />

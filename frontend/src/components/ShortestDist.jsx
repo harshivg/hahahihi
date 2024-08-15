@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Path from "./Path";
 import Vertex from "./Vertex";
 
@@ -113,6 +114,19 @@ function ShortestDist({ src, dest }) {
     { no: 24, x: 630, y: 340 },
     { no: 28, x: 750, y: 340 },
   ];
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  let changed= 1024/screenWidth;
   const pathList = findShortestPathEdges(
     edgeList,
     parseInt(src),
@@ -126,8 +140,8 @@ function ShortestDist({ src, dest }) {
   const { x: x2, y: y2 } = vertex2;
   return (
     <>
-      <Vertex no={src} type={100} x={x1} y={y1} />
-      <Vertex no={dest} type={101} x={x2} y={y2} />
+      <Vertex no={src} type={100} x={x1/changed} y={y1/changed} />
+      <Vertex no={dest} type={101} x={x2/changed} y={y2/changed} />
       {pathList.map((item, ind) => (
         <Path key={ind} U={item.u} V={item.v} />
       ))}

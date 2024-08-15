@@ -5,6 +5,7 @@ import { useState } from "react";
 export const Cart = ({ cart, total, scrollToBottom }) => {
   const discount = 5;
   const [showCart, setshowCart] = useState(false);
+  
   const handleShowCart = () => {
     setshowCart(!showCart);
   }

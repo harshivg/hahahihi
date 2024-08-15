@@ -51,8 +51,8 @@ export const Dashboard = () => {
       <div className="w-full h-[100rem] bg-black">
         <Appbar />
         <div className="h-full w-full mt-10">
-          <div className="flex mx-8 items-center bg-yellow-500 rounded-lg">
-            <div className="p-3 w-[50rem]">
+          <div className="flex mx-8 items-center bg-yellow-500 rounded-lg justify-between">
+            <div className="p-3 w-[54rem] ml-2">
               {showCart ? (
                 <Cart
                   cart={cart}
@@ -67,7 +67,7 @@ export const Dashboard = () => {
                 onClick={() => setshowCart(!showCart)}
               />
             </div>
-            <div className="w-[28rem] h-[35rem] p-5">
+            <div className="w-[30rem] h-[35rem] p-5">
               <Carousel />
               <div className="m-4">
                 <Button label="Start" onClick={scrollToBottom} />

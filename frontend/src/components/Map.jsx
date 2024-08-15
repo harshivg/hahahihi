@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EmptySpaceCol, EmptySpaceRow } from "./EmptySpace.jsx";
 import { ItemSectionRow, ItemSectionCol } from "./ItemSection.jsx";
 import Section from "./Sections.jsx";
@@ -6,6 +6,22 @@ import Graph from "./Graph.jsx";
 import ShortestDist from "./ShortestDist.jsx";
 
 function Map({cart}) {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  let longSide = screenWidth / 8;
+  let shortSide = longSide / 4;
+  longSide*=1.5;
+
   const [SectionNo, setSectionNo] = useState(1);
   return (
     <>
@@ -24,12 +40,12 @@ function Map({cart}) {
                 ))}
               </div>
               <div>
-                <div className="flex w-full ">
+                <div className="flex  ">
                   {Array.from({ length: 6 }, (_, index) => (
                     <ItemSectionCol key={index} />
                   ))}
                 </div>
-                <div className="flex w-full ">
+                <div className="flex ">
                   {Array.from({ length: 6 }, (_, index) => (
                     <EmptySpaceCol key={index} />
                   ))}
@@ -63,8 +79,14 @@ function Map({cart}) {
               {Array.from({ length: 5 }, (_, index) => (
                 <ItemSectionCol key={index}  />
               ))}
-              <div className="h-8 w-[192px] bg-blue-500">
-                <p className="text-center font-bold text-3xl">GATE</p>
+              <div className="
+              bg-blue-500"  style={{
+                width: `${longSide}px`,
+                height: `${shortSide}px`,
+              }}>
+                <p className="text-center font-bold"
+               
+                >GATE</p>
               </div>
             </div>
           </div>

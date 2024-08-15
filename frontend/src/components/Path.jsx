@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Path = ({ U, V }) => {
   const arr = [
@@ -31,19 +31,31 @@ const Path = ({ U, V }) => {
     { no: 24, x: 630, y: 340 },
     { no: 28, x: 750, y: 340 },
   ];
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  let changed= 1024/screenWidth;
   const vertex1 = arr.find((item) => item.no === U);
   const vertex2 = arr.find((item) => item.no === V);
   const { x: x1, y: y1 } = vertex1;
   const { x: x2, y: y2 } = vertex2;
   return (
     <div className="absolute z-30">
-      <svg height={400} width={800}>
+      <svg height={screenWidth/2} width={screenWidth}>
         <line
-          x1={x1}
-          y1={y1 + 5}
-          x2={x2}
-          y2={y2 + 5}
+          x1={x1/changed}
+          y1={(y1 + 5)/changed}
+          x2={x2/changed}
+          y2={(y2 + 5)/changed}
           stroke="red"
           strokeWidth="5"
         />

@@ -10,7 +10,7 @@ import Carousel from "../components/Carousel";
 export const Dashboard = () => {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
-  const [curritem,setCurritem]= useState("Wait");
+  const [curritem, setCurritem] = useState("Wait");
   const [showCart, setshowCart] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -47,6 +47,7 @@ export const Dashboard = () => {
       });
   };
   cart.sort((a, b) => a.blockNo - b.blockNo);
+  const [PathList, setPathList] = useState([]);
 
   useEffect(() => {
     fetchCart();
@@ -56,6 +57,7 @@ export const Dashboard = () => {
 
   const scrollToBottom = () => {
     bottomComponentRef.current.scrollIntoView({ behavior: "smooth" });
+    setPathList(cart);
   };
 
   return (
@@ -95,16 +97,18 @@ export const Dashboard = () => {
               marginLeft: `${longSide / 10}px`,
             }}
           >
-            <Map cart={cart} setCurritem={setCurritem} />
+            <Map cart={PathList} setCurritem={setCurritem} />
           </div>
         </div>
         <div className="flex justify-center pb-10">
-          <button className="bg-red-400 p-2 border-2 border-red-700 text-xl font-bold text-blue-950  "
-          style={{
-            height: `${70}px`
-          }}
-        
-          >Go and Pick : {curritem}</button>
+          <button
+            className="bg-red-400 p-2 border-2 border-red-700 text-xl font-bold text-blue-950  "
+            style={{
+              height: `${70}px`,
+            }}
+          >
+            Go and Pick : {curritem}
+          </button>
         </div>
       </div>
     </>

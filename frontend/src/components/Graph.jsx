@@ -3,7 +3,7 @@ import Vertex from "./Vertex";
 import ShortestDist from "./ShortestDist";
 import Shopping from "./Shopping";
 
-function Graph({ cart }) {
+function Graph({ cart,setCurritem }) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -77,7 +77,6 @@ function Graph({ cart }) {
     { no: 29, x: 690, y: 120 },
   ];
 
-  const PathList = cart.map((item) => item.blockNo);
 
   return (
     <>
@@ -85,7 +84,7 @@ function Graph({ cart }) {
         <Vertex key={ind} no={item.no} x={item.x/changed} y={item.y/changed} type={ind} />
       ))}
 
-      <Shopping PathList={PathList} />
+      <Shopping PathList={cart} setCurritem={setCurritem}  />
     </>
   );
 }

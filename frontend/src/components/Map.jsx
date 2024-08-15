@@ -5,7 +5,7 @@ import Section from "./Sections.jsx";
 import Graph from "./Graph.jsx";
 import ShortestDist from "./ShortestDist.jsx";
 
-function Map({cart}) {
+function Map({cart,setCurritem}) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -22,12 +22,11 @@ function Map({cart}) {
   let shortSide = longSide / 4;
   longSide*=1.5;
 
-  const [SectionNo, setSectionNo] = useState(1);
   return (
     <>
       <div className="relative">  
         <div className="absolute">
-          <Graph cart={cart} />
+          <Graph cart={cart} setCurritem={setCurritem} />
         </div>
         <div className="border-2 border-black flex h-auto absolute">
           <div>

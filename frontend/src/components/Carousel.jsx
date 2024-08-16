@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
 const images = [
-  './images/welcomeCart.png',
   './images/display1.png',
   './images/display2.png',
   './images/display3.png',
-  
+  './images/display4.jpeg',
+  './images/display5.jpeg',
+  './images/display6.png',
+  './images/display7.jpeg',
+  './images/display8.jpeg',
+  './images/display9.jpeg',
+  './images/display10.jpeg',
 ];
 
 function Carousel() {

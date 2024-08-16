@@ -1,51 +1,37 @@
-
-import Signin from '../pages/Signin';
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Signin from '../pages/Signin';
+import Carousel from './Carousel';
 
 function LandingPage() {
   return (
-   
-    <div className="bg-blue-100 h-full flex flex-col ">
-      {/* Hero Section */}
-      <section className="bg-blue-600 text-emerald-500 decoration-red-950 text-center py-36 bg-[url(/images/welcomeCart.jpg)] bg-cover h-full ">
-        <div className="container mx-auto px-4 ">
-          <h1 className="text-4xl font-bold -translate-y-32 italic drop-shadow-2x
-         text-black   ">Welcome to Hahahihi</h1>
-          <p className="mt-4 text-lg translate-y-64 italic brightness-100
-           drop-shadow-2x text-black   text-shadow text-shadow-md bg-slate-200 font-bold
-              ">Find the best routes for your shopping needs.</p>
-          
-         <p className='text-black'>....</p>
-         <p  className='text-black'>....</p>
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-grow flex">
+        {/* Left side: Carousel */}
+        <div className="w-1/2 flex items-center justify-center bg-yellow-400">
+          <div className="">
+            <Carousel />
+          </div>
         </div>
-        
-      </section>
-    
-      </div>
-  );
-}
 
-function Welcome() {
-  return (
-    <div className='h-full'>
-    <div className="flex h-screen">
-      <div className="w-1/2 bg-blue-100">
-        <LandingPage />
-      </div>
-      <div className="w-1/2 bg-white">
-        <Signin />
-      </div>
-
-    </div>
-    <footer className="bg-gray-800 text-white text-center h-6"> 
-        <div className="container mx-auto px-4 mb-5">
-          <p>&copy; 2024 Your Company. All rights reserved.</p>
+        {/* Right side: Sign In */}
+        <div className="w-1/2 bg-yellow-400 flex-col items-center justify-center">
+          <div className="bg-gray-800 text-white text-center py-4 m-4 rounded-lg">
+            <h1 className="text-4xl">Welcome to ShoppyMart</h1>
+            <p className="text-lg">The local guide for your shopping experience</p>
+          </div>
+          <Signin />
         </div>
-      </footer> 
+      </main>
+
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white text-center py-4">
+        <div className="container mx-auto px-4">
+          <p>&copy; 2024 ShoppyMart. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 }
 
-export default Welcome;
-
+export default LandingPage;

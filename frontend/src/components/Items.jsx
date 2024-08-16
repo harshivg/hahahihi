@@ -45,7 +45,7 @@ export const Items = ({ fetchCart }) => {
           }}
           placeholder="Search Items"
           type="text"
-          className="w-full pl-8 pr-2 py-1 border rounded-lg border-black bg-green-100 outline-none"
+          className="w-full pl-8 pr-2 py-1 border rounded-lg border-black bg-white outline-none"
         />
       </div>
       <div className="h-96 overflow-y-auto no-scrollbar px-2">

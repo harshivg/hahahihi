@@ -10,7 +10,7 @@ function Signin(){
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     return (
-        <div className="bg-gradient-to-r from-slate-400 to slate-300 h-screen flex justify-center">
+        <div className="flex justify-center">
             <div className="flex flex-col justify-center">
 
                 <div className="rounded-lg bg-white w-80 text-center h-max p-2 px-4">
@@ -25,6 +25,7 @@ function Signin(){
                         label={"Password"} 
                         placeholder={"password"} 
                         onChange={(e) => setPassword(e.target.value)}
+                        type={"password"}
                     />
 
                     <div className="pt-4">

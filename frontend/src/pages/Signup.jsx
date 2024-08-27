@@ -56,7 +56,7 @@ function Signup(){
                                     password
                                 })
 
-                                useNavigate("/")
+                                window.location.href = "/signin"
                             }}
                         />
                         <BottomWarning label={"Already have an account?"} toText={"Sign In"} to={"/signin"} />

@@ -40,7 +40,7 @@ function Signin(){
                                 console.log(response);
                                 localStorage.setItem("token", response.data.token)
 
-                                window.location.href = "/"
+                                window.location.href = "/dashboard"
                             }}
                         />
                     </div>

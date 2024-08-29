@@ -6,6 +6,7 @@ import axios from "axios";
 import { Button } from "../components/Button";
 import Map from "../components/Map";
 import Carousel from "../components/Carousel";
+import {baseUrl} from "../components/config/config";
 
 export const Dashboard = () => {
   const [cart, setCart] = useState([]);
@@ -27,7 +28,7 @@ export const Dashboard = () => {
   let longSide = screenWidth / 2;
   const fetchCart = () => {
     axios
-      .get("http://localhost:3000/api/v1/item/cart", {
+      .get(`${baseUrl}/api/v1/item/cart`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

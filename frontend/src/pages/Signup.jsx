@@ -6,6 +6,7 @@ import { InputBox } from "../components/InputBox"
 import { SubHeading } from "../components/SubHeading"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import {baseUrl} from "../components/config/config"
 
 function Signup(){
     const [firstName, setFirstName] = useState("")
@@ -49,7 +50,7 @@ function Signup(){
                         <Button 
                             label={"Sign Up"}
                             onClick={() => {
-                                axios.post("http://localhost:3000/api/v1/user/signup", {
+                                axios.post(`${baseUrl}/api/v1/user/signup`, {
                                     firstName,
                                     lastName,
                                     username,

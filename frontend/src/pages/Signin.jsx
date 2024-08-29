@@ -5,6 +5,7 @@ import { Heading } from "../components/Heading"
 import { InputBox } from "../components/InputBox"
 import { SubHeading } from "../components/SubHeading"
 import { useState } from "react"
+import {baseUrl} from "../components/config/config"
 
 function Signin(){
     const [username, setUsername] = useState("")
@@ -32,7 +33,7 @@ function Signin(){
                         <Button 
                             label={"Sign In"}
                             onClick={async () => {
-                                const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
+                                const response = await axios.post(`${baseUrl}/api/v1/user/signin`, {
                                     username,
                                     password
                                 })

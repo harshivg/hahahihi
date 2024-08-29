@@ -1,7 +1,14 @@
 const mongoose = require("mongoose");
 const { mockItems } = require("./itemList");
+require('dotenv').config();
 
-mongoose.connect("mongodb+srv://admin:hx220903@cluster0.fkjkl0y.mongodb.net/walmart");
+// mongoose.connect("mongodb+srv://admin:hx220903@cluster0.fkjkl0y.mongodb.net/walmart");
+// mongoose.connect(process.env.MONGODB_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log('Connected to MongoDB'))
+//   .catch((err) => console.error('Failed to connect to MongoDB', err));
 
 
 const userSchema = new mongoose.Schema({

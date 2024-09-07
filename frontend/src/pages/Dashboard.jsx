@@ -38,16 +38,18 @@ export const Dashboard = () => {
         setCart(items);
         console.log(response)
         // Calculate total
-        const calculatedTotal = items.reduce((acc, item) => {
-          return acc + item.price * item.quantity;
-        }, 0);
+       const calculatedTotal = items?.reduce((acc, item) => {
+  return acc + item.price * item.quantity;
+}, 0);
+
         setTotal(calculatedTotal);
       })
       .catch((error) => {
         console.error("Error fetching cart items", error);
       });
   };
-  cart.sort((a, b) => a.blockNo - b.blockNo);
+  cart.sort((a, b) => (a.blockNo || 0) - (b.blockNo || 0));
+
   const [PathList, setPathList] = useState([]);
 
   useEffect(() => {

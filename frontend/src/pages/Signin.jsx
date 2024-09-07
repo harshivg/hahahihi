@@ -35,7 +35,7 @@ function Signin() {
             <Button
               label={"Sign In"}
               onClick={async () => {
-                const response = await axios.post(`https://shoppy-mart-ochre.vercel.app/user/signin`, {
+                const response = await axios.post(`https://shoppy-mart-ochre.vercel.app/api/user/signin`, {
                   username,
                   password,
                 });

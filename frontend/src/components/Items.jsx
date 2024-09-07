@@ -21,17 +21,26 @@ export const Items = ({ fetchCart }) => {
         };
     }, [filter]);
 
-    useEffect(() => {
-        axios.get("${baseUrl}/api/item/bulk?filter=" + debouncedFilter, {
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("token")
-            }
-        })
-            .then((response) => {
-              console.log(response);
-                setItems(response);
-            });
-    }, [debouncedFilter]);
+useEffect(() => {
+    // Define the async function
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/api/item/bulk?filter=${debouncedFilter}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        console.log(response);
+        setItems(response.data);
+      } catch (err) {
+        console.error("Error fetching items:", err);
+        setError("Failed to fetch items");
+      }
+    };
+
+    // Call the async function
+    fetchItems();
+  }, [debouncedFilter]); /
 
 
   return (

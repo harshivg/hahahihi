@@ -14,7 +14,11 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: ['https://shoppy-mart-ochre.vercel.app'], // Allow your frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Define allowed methods
+  credentials: true // Allow cookies and authorization headers
+}));
 // app.use('/', (req, res) => {
 //   res.status(200).json({ message: "Hello from Vercel!" });
 // })

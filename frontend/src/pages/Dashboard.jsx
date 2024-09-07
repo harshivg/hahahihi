@@ -35,8 +35,9 @@ export const Dashboard = () => {
       })
       .then((response) => {
         const items = response.data.items;
+         console.log(response.data)
         setCart(items);
-        console.log(response)
+       
         // Calculate total
        const calculatedTotal = items?.reduce((acc, item) => {
   return acc + item.price * item.quantity;

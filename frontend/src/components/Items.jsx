@@ -28,6 +28,7 @@ export const Items = ({ fetchCart }) => {
             }
         })
             .then((response) => {
+              console.log(response.data);
                 setItems(response.data.items);
             });
     }, [debouncedFilter]);

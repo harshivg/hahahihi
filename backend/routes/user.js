@@ -76,7 +76,7 @@ router.post("/signin", async (req, res) => {
         username: body.username
     })
 
-    if (!user || !(bcrypt.compare(user.password,body.password))) {
+    if (!user || !(await bcrypt.compare(user.password,body.password))) {
         return res.json({
             message: "Invalid credentials",
             check:0

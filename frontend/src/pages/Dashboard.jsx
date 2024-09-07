@@ -28,7 +28,7 @@ export const Dashboard = () => {
   let longSide = screenWidth / 2;
   const fetchCart = () => {
     axios
-      .get(`${baseUrl}/item/cart`, {
+      .get(`https://shoppy-mart-ochre.vercel.app/item/cart`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

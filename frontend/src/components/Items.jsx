@@ -29,7 +29,7 @@ export const Items = ({ fetchCart }) => {
         })
             .then((response) => {
               console.log(response);
-                setItems(response.data.items);
+                setItems(response);
             });
     }, [debouncedFilter]);
 

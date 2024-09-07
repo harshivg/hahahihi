@@ -83,6 +83,7 @@ function ShortestDist({ src, dest }) {
     { u: 26, v: 27 },
     { u: 27, v: 28 },
     { u: 24, v: 28 },
+    { u: 16, v: 20 },
   ];
   const arr = [
     { no: 1, x: 50, y: 40 },
@@ -126,7 +127,7 @@ function ShortestDist({ src, dest }) {
     };
   }, []);
 
-  let changed= 1024/screenWidth;
+  let changed = 1024 / screenWidth;
   const pathList = findShortestPathEdges(
     edgeList,
     parseInt(src),
@@ -140,8 +141,8 @@ function ShortestDist({ src, dest }) {
   const { x: x2, y: y2 } = vertex2;
   return (
     <>
-      <Vertex no={src} type={100} x={x1/changed} y={y1/changed} />
-      <Vertex no={dest} type={101} x={x2/changed} y={y2/changed} />
+      <Vertex no={src} type={100} x={x1 / changed} y={y1 / changed} />
+      <Vertex no={dest} type={101} x={x2 / changed} y={y2 / changed} />
       {pathList.map((item, ind) => (
         <Path key={ind} U={item.u} V={item.v} />
       ))}

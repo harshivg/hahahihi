@@ -1,46 +1,38 @@
 const express = require("express");
-const { Item, Cart } = require("../db");
 const { authMiddleware } = require("../middleware");
+const Item = require("../Models/item.model");
+const Cart = require("../Models/cart.model");
 const router = express.Router();
 
 router.get("/bulk", async (req, res) => {
     const filter = req.query.filter || "";
 
-    const items = await Item.find({
-        $or: [
-            {
-                name: {
-                    $regex: filter,
-                    $options: "i"
+    try {
+        const items = await Item.find({
+            $or: [
+                {
+                    name: {
+                        $regex: filter,
+                        $options: "i"
+                    }
                 }
-            },
-            {
-                aisle: {
-                    $regex: filter,
-                    $options: "i"
-                }
-            }
-        ]
-    });
+                
+            ]
+        });
+        console.log(items);
 
-    items.filter(item => item.quantity > 0);
+        res.json(items);
+    } catch (error) {
+        console.error("Error fetching items:", error);
+       
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
 
-    res.json({
-        items: items.map(item => ({
-            name: item.name,
-            aisle: item.aisle,
-            price: item.price,
-            company: item.company,
-            id: item.id,
-            _id: item._id,
-            blockNo: item.blockNo,
-            quantity: item.quantity
-        }))
-    })
-})
 
 router.get("/cart", authMiddleware, async (req, res) => {
     try {
+        console.log(req.userId);
         const cart = await Cart.findOne({ userId: req.userId });
 
         if (!cart) {
@@ -52,14 +44,12 @@ router.get("/cart", authMiddleware, async (req, res) => {
         // Use Promise.all to handle async operations in map
         const items = await Promise.all(cart.items.map(async (i) => {
             const item = await Item.findById(i.itemId);
-            if (item && i.quantity > 0) {
+            if (item ) {
                 return {
                     name: item.name,
-                    aisle: item.aisle,
                     price: item.price,
-                    company: item.company,
-                    quantity: i.quantity,
                     blockNo: item.blockNo,
+                    quantity:i.quantity
                 };
             } else {
                 return null;
@@ -78,35 +68,27 @@ router.get("/cart", authMiddleware, async (req, res) => {
     }
 });
 
-router.post("/addToCart/:id", authMiddleware, async (req, res) => {
-    const itemId = req.params.id;
-    
-    // console.log(itemId);
+router.post("/addToCart/:_id", authMiddleware, async (req, res) => {
+    const itemId = req.params._id;
 
     try {
         const item = await Item.findById(itemId);
-        
-        // console.log(item.name);
 
-        if (!item || item.quantity === 0) {
+        if (!item) {
             return res.status(404).json({ error: "Item not found" });
         }
-        
+
         const cart = await Cart.findOne({ userId: req.userId });
-        
-        // console.log(cart);
 
         if (!cart) {
             const newCart = new Cart({
                 userId: req.userId,
                 items: [{ itemId: itemId, quantity: 1 }]
             });
-            item.quantity -= 1;
             
-            await item.save();
+            
             await newCart.save();
         } else {
-            // Check if the item already exists in the cart
             const existingItem = cart.items.find(i => i.itemId.toString() === itemId);
 
             if (existingItem) {
@@ -114,17 +96,17 @@ router.post("/addToCart/:id", authMiddleware, async (req, res) => {
             } else {
                 cart.items.push({ itemId: itemId, quantity: 1 });
             }
-            item.quantity -= 1;
+           
             
-            await item.save();
             await cart.save();
         }
-        
-        res.json({ message: "Item added to cart successfully" , cart});
+        res.json({ message: "Item added to cart successfully", cart });
     } catch (error) {
+        console.error("Error adding item to cart:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
 
 router.post("/removeFromCart/:id", authMiddleware, async (req, res) => {
     const itemId = req.params.id;
@@ -147,16 +129,14 @@ router.post("/removeFromCart/:id", authMiddleware, async (req, res) => {
             return res.status(404).json({ error: "Item not in cart" });
         }
         existingItem.quantity -= 1;
-        
-         
 
-        item.quantity += 1;
-        
-        await item.save();
+        if (existingItem.quantity <= 0) {
+            cart.itemList = cart.itemList.filter(i => i.itemId.toString() !== itemId);
+        }
         await cart.save();
-
         res.json({ message: "Item removed from cart successfully" });
     } catch (error) {
+        console.error("Error removing item from cart:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 });

@@ -1,58 +1,51 @@
 const express = require("express");
-const { User, Account, Cart } = require("../db");
+require('dotenv').config();
+const bcrypt= require('bcrypt');
+const User  = require("../Models/user.model");
 const z = require("zod");
 const jwt = require("jsonwebtoken");
-
-const { authMiddleware } = require("../middleware");
-const JWT_SECRET = require("./config");
-
+const  { authMiddleware } = require("../middleware");
+const Cart = require("../Models/cart.model");
 const router = express.Router();
 
 const signupSchema = z.object({
-    username: z.string(),
-    password: z.string(),
-    firstName: z.string(),
-    lastName: z.string()
-})
-
+    username: z.string().min(1, 'Username is required'), 
+    password: z.string().min(6, 'Password must be at least 6 characters long'), 
+    firstName: z.string().min(1, 'First name is required'),
+    lastName: z.string().optional()
+});
 const signinSchema = z.object({
-    username: z.string(),
-    password: z.string()
-})
+    username: z.string().min(1, 'Username is required'), 
+    password: z.string().min(1, 'Password is required') 
+});
 
 const updateBodySchema = z.object({
-    password: z.string().optional(),
+    password: z.string().min(6, 'Password must be at least 6 characters long').optional(), 
     firstName: z.string().optional(),
-    lastName: z.string().optional()
-})
+    lastName: z.string().optional() 
+});
 
 router.post("/signup", async (req, res) => {
     const body = req.body;
     const { success } = signupSchema.safeParse(req.body);
-
     if (!success) {
-        return res.status(403).json({
-            message: "heres what was received", body
-        })
+        return res.json({
+            check: 0,
+        // Contains validation errors
+          });
     }
 
     const existingUser = await User.findOne({
         username: body.username
     })
-
+    
     if(existingUser){
-        return res.status(411).json({
-            message: "user already exists"
+        return  res.json({
+            check:-1
         })
     }
-
     const user = await User.create(body);
     const userId = user._id;
-
-    await Account.create({
-        userId,
-        balance: 1 + Math.floor(Math.random() * 10000)
-    })
 
     //also create an empty cart for the user
 
@@ -64,6 +57,7 @@ router.post("/signup", async (req, res) => {
     
     res.json({
         message: "User created successfully",
+        check:1
     })
 })
 
@@ -73,24 +67,25 @@ router.post("/signin", async (req, res) => {
 
     if (!success) {
         return res.json({
-            message: "Invalid inputs"
+            message: "Invalid inputs",
+            check:0
+
         })
     }
-
     const user = await User.findOne({
-        username: body.username,
-        password: body.password
+        username: body.username
     })
 
-    if (!user) {
+    if (!user || !(bcrypt.compare(user.password,body.password))) {
         return res.json({
-            message: "Invalid credentials"
+            message: "Invalid credentials",
+            check:0
         })
     }
 
     const token = jwt.sign({
         userId : user._id
-    }, JWT_SECRET)
+    }, process.env.JWT_SECRET)
 
     await Cart.findOneAndUpdate(
         { userId: user._id }, // Find the cart by userId
@@ -99,7 +94,8 @@ router.post("/signin", async (req, res) => {
     
     res.json({
         message: "User signed in successfully",
-        token: token
+        token: token,
+        check:1
     })
 })
 

@@ -5,11 +5,9 @@ import { useState } from "react";
 export const Cart = ({ cart, total, scrollToBottom }) => {
   const discount = 5;
   const [showCart, setshowCart] = useState(false);
-  
   const handleShowCart = () => {
     setshowCart(!showCart);
   }
-
   return (
     <div className="h-[30.8rem]">
       <div className="relative mb-4">
@@ -28,8 +26,8 @@ export const Cart = ({ cart, total, scrollToBottom }) => {
               <div className="w-1/4 text-[1.2rem]">Quantity</div>
               <div className="w-1/4 text-[1.2rem]">Price</div>
             </div>
-            {cart.map((item) => (
-              <CartItem key={item._id} item={item} />
+            {cart.map((item,ind) => (
+              <CartItem key={ind} item={item} />
             ))}
           </div>
         )}

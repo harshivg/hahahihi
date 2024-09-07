@@ -57,7 +57,7 @@ function Signup() {
             <Button
               label={"Sign Up"}
               onClick={async () => {
-                const response = await axios.post(`${baseUrl}/user/signup`, {
+                const response = await axios.post(`${baseUrl}/api/user/signup`, {
                   firstName,
                   lastName,
                   username,

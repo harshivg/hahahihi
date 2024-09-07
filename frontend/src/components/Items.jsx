@@ -21,13 +21,13 @@ export const Items = ({ fetchCart }) => {
     }, [filter]);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/item/bulk?filter=" + debouncedFilter, {
+        axios.get("http://localhost:3000/item/bulk?filter=" + debouncedFilter, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }
         })
             .then((response) => {
-                setItems(response.data.items);
+                setItems(response.data);
             });
     }, [debouncedFilter]);
 
@@ -77,7 +77,7 @@ function Item({ item, fetchCart }) {
           onClick={() => {
             axios
               .post(
-                "http://localhost:3000/api/v1/item/addToCart/" + id,
+                "http://localhost:3000/item/addToCart/" + id,
                 {},
                 {
                   headers: {
@@ -93,7 +93,7 @@ function Item({ item, fetchCart }) {
           onClick={() => {
             axios
               .post(
-                "http://localhost:3000/api/v1/item/removeFromCart/" + id,
+                "http://localhost:3000/item/removeFromCart/" + id,
                 {},
                 {
                   headers: {

@@ -28,7 +28,7 @@ export const Dashboard = () => {
   let longSide = screenWidth / 2;
   const fetchCart = () => {
     axios
-      .get(`${baseUrl}/api/v1/item/cart`, {
+      .get(`${baseUrl}/item/cart`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -36,7 +36,7 @@ export const Dashboard = () => {
       .then((response) => {
         const items = response.data.items;
         setCart(items);
-
+        console.log(response)
         // Calculate total
         const calculatedTotal = items.reduce((acc, item) => {
           return acc + item.price * item.quantity;

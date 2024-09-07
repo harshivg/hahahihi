@@ -15,7 +15,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-
+app.use('/', (req, res) => {
+  res.status(200).json({ message: "Hello from Vercel!" });
+})
 app.use("/", mainRouter);
 
 app.listen(port,  () => {

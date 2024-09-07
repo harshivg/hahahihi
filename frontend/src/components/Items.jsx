@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "./Button";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
+import { baseUrl } from "./config/config";
 
 export const Items = ({ fetchCart }) => {
   const [items, setItems] = useState([]);
@@ -21,7 +22,7 @@ export const Items = ({ fetchCart }) => {
     }, [filter]);
 
     useEffect(() => {
-        axios.get("https://shoppy-mart-ochre.vercel.app/api/item/bulk?filter=" + debouncedFilter, {
+        axios.get("${baseUrl}/api/item/bulk?filter=" + debouncedFilter, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }

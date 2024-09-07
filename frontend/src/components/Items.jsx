@@ -3,24 +3,26 @@ import { Button } from "./Button";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
 import { baseUrl } from "./config/config";
+
 export const Items = ({ fetchCart }) => {
   const [items, setItems] = useState([]);
   const [filter, setFilter] = useState("");
-    const [debouncedFilter, setDebouncedFilter] = useState(filter);
+  const [debouncedFilter, setDebouncedFilter] = useState(filter);
+  const [error, setError] = useState("");
 
-    useEffect(() => {
-        // Set a timeout to update the debounced filter after a delay
-        const handler = setTimeout(() => {
-            setDebouncedFilter(filter);
-        }, 500); // 500ms debounce delay
+  useEffect(() => {
+    // Set a timeout to update the debounced filter after a delay
+    const handler = setTimeout(() => {
+      setDebouncedFilter(filter);
+    }, 500); // 500ms debounce delay
 
-        // Clear the timeout if the effect is about to re-run (on filter change)
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [filter]);
+    // Clear the timeout if the effect is about to re-run (on filter change)
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [filter]);
 
-useEffect(() => {
+  useEffect(() => {
     // Define the async function
     const fetchItems = async () => {
       try {
@@ -39,8 +41,7 @@ useEffect(() => {
 
     // Call the async function
     fetchItems();
-  }, [debouncedFilter]); /
-
+  }, [debouncedFilter]);
 
   return (
     <>
@@ -58,8 +59,8 @@ useEffect(() => {
           className="w-full pl-8 pr-2 py-1 border rounded-lg border-black bg-white outline-none"
         />
       </div>
+      {error && <div className="text-red-500">{error}</div>}
       <div className="h-96 overflow-y-auto no-scrollbar px-2">
-        {/* Adjust height as needed */}
         <div className="flex justify-between border-b border-gray-500 py-4 font-bold">
           <div className="w-1/3 text-[1.2rem]">Item</div>
           <div className="w-1/3 text-[1.2rem]">Price</div>
@@ -73,7 +74,6 @@ useEffect(() => {
   );
 };
 
-
 function Item({ item, fetchCart }) {
   const id = item._id;
 
@@ -83,19 +83,22 @@ function Item({ item, fetchCart }) {
       <div className="w-1/3 text-[1.1rem]">₹{item.price}</div>
       <div className="w-1/3 flex">
         <Button
-        label={"Add"}
+          label={"Add"}
           onClick={() => {
             axios
               .post(
-                `${baseUrl}/api/item/addToCart/` + id,
+                `${baseUrl}/api/item/addToCart/${id}`,
                 {},
                 {
                   headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
                   },
                 }
               )
-              .then(() => fetchCart());
+              .then(() => fetchCart())
+              .catch((err) => {
+                console.error("Error adding item to cart:", err);
+              });
           }}
         />
         <Button
@@ -103,15 +106,18 @@ function Item({ item, fetchCart }) {
           onClick={() => {
             axios
               .post(
-                `${baseUrl}/api/item/removeFromCart/` + id,
+                `${baseUrl}/api/item/removeFromCart/${id}`,
                 {},
                 {
                   headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
                   },
                 }
               )
-              .then(() => fetchCart());
+              .then(() => fetchCart())
+              .catch((err) => {
+                console.error("Error removing item from cart:", err);
+              });
           }}
         />
       </div>

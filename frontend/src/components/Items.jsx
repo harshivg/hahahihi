@@ -3,7 +3,6 @@ import { Button } from "./Button";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
 import { baseUrl } from "./config/config";
-
 export const Items = ({ fetchCart }) => {
   const [items, setItems] = useState([]);
   const [filter, setFilter] = useState("");
@@ -88,7 +87,7 @@ function Item({ item, fetchCart }) {
           onClick={() => {
             axios
               .post(
-                "${baseUrl}/api/item/addToCart/" + id,
+                `${baseUrl}/api/item/addToCart/` + id,
                 {},
                 {
                   headers: {
@@ -104,7 +103,7 @@ function Item({ item, fetchCart }) {
           onClick={() => {
             axios
               .post(
-                "${baseUrl}/api/item/removeFromCart/" + id,
+                `${baseUrl}/api/item/removeFromCart/` + id,
                 {},
                 {
                   headers: {

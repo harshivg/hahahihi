@@ -21,7 +21,7 @@ export const Items = ({ fetchCart }) => {
     }, [filter]);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/item/bulk?filter=" + debouncedFilter, {
+        axios.get("https://shoppy-mart-ochre.vercel.app/item/bulk?filter=" + debouncedFilter, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }
@@ -77,7 +77,7 @@ function Item({ item, fetchCart }) {
           onClick={() => {
             axios
               .post(
-                "http://localhost:3000/item/addToCart/" + id,
+                "https://shoppy-mart-ochre.vercel.app/item/addToCart/" + id,
                 {},
                 {
                   headers: {
@@ -93,7 +93,7 @@ function Item({ item, fetchCart }) {
           onClick={() => {
             axios
               .post(
-                "http://localhost:3000/item/removeFromCart/" + id,
+                "https://shoppy-mart-ochre.vercel.app/item/removeFromCart/" + id,
                 {},
                 {
                   headers: {

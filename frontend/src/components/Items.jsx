@@ -77,7 +77,7 @@ function Item({ item, fetchCart }) {
           onClick={() => {
             axios
               .post(
-                "https://shoppy-mart-ochre.vercel.app/api/item/addToCart/" + id,
+                "${baseUrl}/api/item/addToCart/" + id,
                 {},
                 {
                   headers: {
@@ -93,7 +93,7 @@ function Item({ item, fetchCart }) {
           onClick={() => {
             axios
               .post(
-                "https://shoppy-mart-ochre.vercel.app/api/item/removeFromCart/" + id,
+                "${baseUrl}/api/item/removeFromCart/" + id,
                 {},
                 {
                   headers: {

@@ -28,26 +28,29 @@ export const Dashboard = () => {
   let longSide = screenWidth / 2;
   const fetchCart = () => {
     axios
-      .get(`${baseUrl}/item/cart`, {
+      .get(`${baseUrl}/api/item/cart`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((response) => {
         const items = response.data.items;
+         console.log(response.data)
         setCart(items);
-        console.log(response)
+       
         // Calculate total
-        const calculatedTotal = items.reduce((acc, item) => {
-          return acc + item.price * item.quantity;
-        }, 0);
+       const calculatedTotal = items?.reduce((acc, item) => {
+  return acc + item.price * item.quantity;
+}, 0);
+
         setTotal(calculatedTotal);
       })
       .catch((error) => {
         console.error("Error fetching cart items", error);
       });
   };
-  cart.sort((a, b) => a.blockNo - b.blockNo);
+  cart.sort((a, b) => (a.blockNo || 0) - (b.blockNo || 0));
+
   const [PathList, setPathList] = useState([]);
 
   useEffect(() => {

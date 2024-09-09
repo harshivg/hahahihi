@@ -1,6 +1,6 @@
 import React from "react";
 import Signin from "../pages/Signin";
-import Carousel from "./Carousel";
+import SigninCarousel from "./SignInCarousel";
 
 function LandingPage() {
   return (
@@ -15,7 +15,7 @@ function LandingPage() {
         <div className="flex items-center w-full h-full bg-yellow-400 p-5 grow">
           {/* Left side: Carousel */}
           <div className="w-1/2 px-[2rem]">
-            <Carousel />
+            <SigninCarousel />
           </div>
 
           {/* Right side: Sign In */}

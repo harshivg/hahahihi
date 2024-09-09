@@ -13,7 +13,7 @@ const images = [
   './images/display10.jpeg',
 ];
 
-function Carousel() {
+function SignInCarousel() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function Carousel() {
   }, []);
 
   return (
-    <div className="carousel-container w-full h-[28rem]">
+    <div className="carousel-container w-full h-[32rem]">
       <img
         src={images[currentImageIndex]}
         alt="carousel"
@@ -37,4 +37,4 @@ function Carousel() {
   );
 }
 
-export default Carousel;
+export default SignInCarousel;

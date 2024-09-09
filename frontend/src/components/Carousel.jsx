@@ -27,7 +27,7 @@ function Carousel() {
   }, []);
 
   return (
-    <div className="carousel-container w-full h-[28rem] mb-8">
+    <div className="carousel-container w-full h-[32rem]">
       <img
         src={images[currentImageIndex]}
         alt="carousel"

@@ -10,46 +10,45 @@ import { baseUrl } from "../components/config/config";
 function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [valid,setValid]= useState(1);
+  const [valid, setValid] = useState(1);
 
   return (
-    <div className="flex justify-center">
-      <div className="flex flex-col justify-center">
-        <div className="rounded-lg bg-white w-80 text-center h-max p-2 px-4">
+
+        <div className="rounded-lg bg-white w-full h-[28rem] text-center p-2 flex flex-col">
           <Heading label={"Sign In"} />
           <SubHeading description={"Log In to your account"} />
-          {valid===0 && <div className="text-red-800 text-xl font-bold" >Invalid Credential </div>}
-          <InputBox
-            label={"Username"}
-            placeholder={"username"}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <InputBox
-            label={"Password"}
-            placeholder={"password"}
-            onChange={(e) => setPassword(e.target.value)}
-            type={"password"}
-          />
-
+          {valid === 0 && (
+            <div className="text-red-800 text-xl font-bold">
+              Invalid Credential{" "}
+            </div>
+          )}
+          <div className="flex flex-col items-start px-3 gap-1 mb-3">
+            <p>Username</p>
+            <input type="text" name="username" placeholder="username" className="border border-gray-400 w-full rounded-md p-2 outline-none" onChange={(e) => setUsername(e.target.value)} />
+          </div>
+          <div className="flex flex-col items-start px-3 gap-1 mb-5">
+            <p>Password</p>
+            <input type="password" name="password" placeholder="password" className="border border-gray-400 w-full rounded-md p-2 outline-none" onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          
           <div className="pt-4">
             <Button
               label={"Sign In"}
               onClick={async () => {
-                const response = await axios.post(`${baseUrl}/api/user/signin`, {
-                  username,
-                  password,
-                });
+                const response = await axios.post(
+                  `${baseUrl}/api/user/signin`,
+                  {
+                    username,
+                    password,
+                  }
+                );
 
                 console.log(response);
-                if(response.data.check == 1)
-                    window.location.href = "/dashboard";
-                else
-                  setValid(0);
-                  
+                if (response.data.check == 1)
+                  window.location.href = "/dashboard";
+                else setValid(0);
 
-                
                 localStorage.setItem("token", response.data.token);
-
               }}
             />
           </div>
@@ -59,8 +58,7 @@ function Signin() {
             to={"/signup"}
           />
         </div>
-      </div>
-    </div>
+
   );
 }
 

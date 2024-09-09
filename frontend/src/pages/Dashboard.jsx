@@ -87,7 +87,7 @@ export const Dashboard = () => {
             </div>
             <div className="w-[30rem] h-[35rem] p-5">
               <Carousel />
-              <div className="mt-11">
+              <div className="mt-9">
                 <Button label="Start" onClick={scrollToBottom} />
               </div>
             </div>

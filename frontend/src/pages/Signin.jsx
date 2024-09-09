@@ -24,11 +24,11 @@ function Signin() {
           )}
           <div className="flex flex-col items-start px-3 gap-1 mb-3">
             <p>Username</p>
-            <input type="text" name="username" placeholder="username" className="border border-gray-400 w-full rounded-md p-2 outline-none" onChange={(e) => setUsername(e.target.value)} />
+            <input type="text" name="Username" placeholder="username" className="border border-gray-400 w-full rounded-md p-2 outline-none" onChange={(e) => setUsername(e.target.value)} />
           </div>
           <div className="flex flex-col items-start px-3 gap-1 mb-5">
             <p>Password</p>
-            <input type="password" name="password" placeholder="password" className="border border-gray-400 w-full rounded-md p-2 outline-none" onChange={(e) => setPassword(e.target.value)} />
+            <input type="password" name="Password" placeholder="password" className="border border-gray-400 w-full rounded-md p-2 outline-none" onChange={(e) => setPassword(e.target.value)} />
           </div>
           
           <div className="pt-4">
